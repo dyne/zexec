@@ -563,12 +563,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b16bd47d9e329435e309c58469fe0791c2d0d1ba96ec0954152a5ae2b04387dc"
 
 [[package]]
-name = "meson"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "de6e688268407ad0a7c589bf2d7313db6c2079dae5c96df0f2d5903bc6343a91"
-
-[[package]]
 name = "mime"
 version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1193,10 +1187,9 @@ checksum = "9fc79f4a1e39857fc00c3f662cbf2651c771f00e9c15fe2abc341806bd46bd71"
 [[package]]
 name = "zenroom"
 version = "0.1.0"
-source = "git+https://github.com/dyne/Zenroom#37c21cafce5bfcee9a245c5b0268646666f389a4"
+source = "git+https://github.com/dyne/Zenroom#0653ba452a5c4cd0861bcba8de30941a040190b6"
 dependencies = [
  "bindgen",
- "meson",
 ]
 
 [[package]]
