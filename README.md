@@ -32,13 +32,27 @@ In addition, Zenroom requires the following dependencies:
 - xxd (usually contained in the vim package)
 - zsh
 
-After the dependencies have been installed, run the following command:
+### Nightly rustc 
+
+Some dependancies require a nightly or dev build of rust to run. An easy way to solve this is:
+
+```bash
+$ rustup default nightly
+```
+
+After the dependencies have been installed and rust set to nightly, run the following command:
 
 ```bash
 $ cargo build --release
 ```
 
 ## Usage
+
+**zexec** looks by default in the folder */etc/zexec*, as defined [here](https://github.com/dyne/zexec/blob/main/src/main.rs#L33). You will probably need to created that folder:
+
+```bash
+$ sudo mkdir /etc/zexec
+```
 
 To run zexec:
 
