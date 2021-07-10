@@ -1,0 +1,7 @@
+Scenario ecdh:
+Given that I am known as 'System'
+Given that I have a 'public key' from 'Alice'
+and I have a 'signature' from 'Alice'
+and I have a 'string' named 'command'
+When I verify the 'command' is signed by 'Alice'
+Then print the 'command' as 'string'
