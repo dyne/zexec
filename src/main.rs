@@ -68,8 +68,15 @@ fn get_contracts(contract_dir: &str) -> Result<HashMap<String, (CString, CString
             Ok((
                 contract,
                 (
-                    CString::new(fs::read(path)?)?,
-                    CString::new(fs::read(Path::new(path).with_extension("keys"))?)?,
+                    CString::new(
+                        fs::read(path)
+                            .with_context(|| format!("unable to read file {:?}", path))?,
+                    )?,
+                    CString::new(
+                        fs::read(Path::new(path).with_extension("keys")).with_context(|| {
+                            format!("unable to read path {:?}", path.with_extension("keys"))
+                        })?,
+                    )?,
                 ),
             ))
         })
@@ -97,7 +104,13 @@ fn contracts(
         );
         if success {
             let filename = get_random_name();
-            let mut log = File::create(Path::new(&config.logs_dir).join(&filename))?;
+            let mut log =
+                File::create(Path::new(&config.logs_dir).join(&filename)).with_context(|| {
+                    format!(
+                        "unable to create file {:?}",
+                        Path::new(&config.logs_dir).join(&filename)
+                    )
+                })?;
             let command = json::parse(&res.output)
                 .with_context(|| format!("unable to parse JSON '{}'", res.output))?["command"]
                 .as_str()
