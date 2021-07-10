@@ -37,33 +37,42 @@ In addition, Zenroom requires the following dependencies:
 Some dependancies require a nightly or dev build of rust to run. An easy way to solve this is:
 
 ```bash
-$ rustup default nightly
+rustup default nightly
 ```
 
 After the dependencies have been installed and rust set to nightly, run the following command:
 
 ```bash
-$ cargo build --release
+cargo build --release
 ```
 
 ## Usage
 
-**zexec** looks by default in the folder */etc/zexec*, as defined [here](https://github.com/dyne/zexec/blob/main/src/main.rs#L33). You will probably need to created that folder:
+**zexec** looks by default in the folder */etc/zexec*, as defined [here](https://github.com/dyne/zexec/blob/main/src/main.rs#L33) and saves output into */var/lib/zexec/logs/*. Create both folders and copy the "command" smart contract to */etc/zexec*
 
 ```bash
-$ sudo mkdir /etc/zexec
+sudo mkdir /etc/zexec
+sudo mkdir -p /var/lib/zexec/logs/
+sudo cp ./contracts/* /etc/zexec
 ```
+
 
 To run zexec:
 
 ```bash
-$ ./target/release/zexec
+sudo ./target/release/zexec
 ```
 
 It will by default listen on the port 9856 on the localhost address. You can change it by
 respectively using `-p` and `-a` in the command line.
 
-## Configuration
+Then you can pass it data via a POST, for example using curl: 
+
+```bash
+curl -X POST "http://127.0.0.1:9856/contracts/command" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"Alice\":{\"signature\":{\"r\":\"5n2RrZFIxuQtETEfKfQwPhR7FvW4hfxOGn2bQOz69gs=\",\"s\":\"vZMggPH3U2A30IwwzTUpLRLNVeUoUjWlG3/wDZaOXbM=\"}},\"command\":\"ls\"}"
+```
+
+Zexec should then return the name of the file, where it logged the output of the command passed in the POST (a simple "ls" in this case), which you can find in the folder */var/lib/zexec/logs/*.
 
 ## License
 
