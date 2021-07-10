@@ -61,7 +61,7 @@ fn get_contracts(contract_dir: &str) -> Result<HashMap<String, (CString, CString
             let contract = Path::new(path)
                 .with_extension("")
                 .file_name()
-                .with_context(|| format!("unable to get fi.into()lename for file {:?}", path))?
+                .with_context(|| format!("unable to get filename for file {:?}", path))?
                 .to_str()
                 .with_context(|| format!("unable to convert `{:?}` to String", path))?
                 .to_string();
