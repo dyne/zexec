@@ -148,12 +148,14 @@ fn main() -> Result<()> {
         .secret_key(secret_key)
         .finalize()?;
 
+    let logs_dir = opts.logs_dir;
+    std::fs::create_dir_all(&logs_dir)
+        .with_context(|| format!("unable to create logs directory {:?}", &logs_dir))?;
+
     rocket::custom(config)
         .mount("/", routes![contracts, logs])
         .manage(get_contracts(&opts.contracts_dir)?)
-        .manage(ZexecConfig {
-            logs_dir: opts.logs_dir,
-        })
+        .manage(ZexecConfig { logs_dir })
         .launch();
     Ok(())
 }
